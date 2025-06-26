@@ -13,7 +13,7 @@
         :color="'primary'"
         :onClick="handleAsyncClick"
       >
-        Disabled and animated for 2 seconds if clicked
+        Increment the wait time by 1 second for each click
       </AsyncButton>
     </div>
   </main>
@@ -29,11 +29,17 @@ export default {
     BaseButton,
     AsyncButton,
   },
+  data() {
+    return {
+      asyncClickCount: 0,
+    };
+  },
   methods: {
     handleAsyncClick() {
-      // Retourne une promesse qui se résout après 2 secondes
+      this.asyncClickCount++;
+      const waitTime = 2000 + (this.asyncClickCount - 1) * 1000;
       return new Promise((resolve) => {
-        setTimeout(resolve, 2000);
+        setTimeout(resolve, waitTime);
       });
     },
   },

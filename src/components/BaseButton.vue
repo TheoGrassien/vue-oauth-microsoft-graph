@@ -1,5 +1,5 @@
 <template>
-  <button class="base-button">
+  <button :class="['base-button', `base-button--${color}`]">
     <slot />
   </button>
 </template>
@@ -8,7 +8,11 @@
 export default {
   name: "BaseButton",
   props: {
-    variant: String,
+    color: {
+      type: String,
+      default: "primary",
+      validator: (value) => ["primary", "warn", "danger"].includes(value),
+    },
   },
 };
 </script>
@@ -18,15 +22,34 @@ export default {
   padding: 0.5em 1.2em;
   border: none;
   border-radius: 4px;
-  background: #26a69a;
   color: white;
   font-size: 1rem;
   transition: background 0.2s;
 }
 
 .base-button:hover {
-  background: #218e83;
   cursor: pointer;
+}
+
+.base-button--primary {
+  background: #26a69a;
+}
+.base-button--primary:hover {
+  background: #218e83;
+}
+
+.base-button--warn {
+  background: #ff9800;
+}
+.base-button--warn:hover {
+  background: #e68900;
+}
+
+.base-button--danger {
+  background: #f44336;
+}
+.base-button--danger:hover {
+  background: #d32f2f;
 }
 
 .base-button:disabled {

@@ -6,6 +6,8 @@
         >BaseButton with custom margin</BaseButton
       >
       <BaseButton disabled>BaseButton disabled</BaseButton>
+      <BaseButton color="warn">BaseButton warn</BaseButton>
+      <BaseButton color="danger">BaseButton danger</BaseButton>
     </div>
   </main>
 </template>
@@ -31,6 +33,8 @@ export default {
 }
 .button-container {
   display: flex;
+  flex-direction: column;
+  gap: 10px;
   align-items: center;
   justify-content: center;
 }

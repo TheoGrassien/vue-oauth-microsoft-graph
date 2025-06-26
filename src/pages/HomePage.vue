@@ -8,17 +8,34 @@
       <BaseButton disabled>BaseButton disabled</BaseButton>
       <BaseButton color="warn">BaseButton warn</BaseButton>
       <BaseButton color="danger">BaseButton danger</BaseButton>
+      <AsyncButton
+        class="custom-margin"
+        :color="'primary'"
+        :onClick="handleAsyncClick"
+      >
+        Disabled and animated for 2 seconds if clicked
+      </AsyncButton>
     </div>
   </main>
 </template>
 
 <script>
 import BaseButton from "../components/BaseButton.vue";
+import AsyncButton from "../components/AsyncButton.vue";
 
 export default {
   name: "HomePage",
   components: {
     BaseButton,
+    AsyncButton,
+  },
+  methods: {
+    handleAsyncClick() {
+      // Retourne une promesse qui se résout après 2 secondes
+      return new Promise((resolve) => {
+        setTimeout(resolve, 2000);
+      });
+    },
   },
 };
 </script>

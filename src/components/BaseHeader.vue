@@ -1,8 +1,15 @@
 <template>
   <header class="base-header">
     <div class="header-left">
-      <i class="fas fa-home"></i>
-      <span>Home</span>
+      <router-link to="/" class="header-link">
+        <i class="fas fa-home"></i>
+        <span>Home</span>
+      </router-link>
+      <template v-if="userStore.user">
+        <router-link to="/conversations" class="header-link"
+          >Conversations</router-link
+        >
+      </template>
     </div>
     <div class="header-right">
       <i class="fas fa-user"></i>
@@ -54,5 +61,21 @@ export default {
 }
 .base-header i {
   font-size: 1.2rem;
+}
+.header-link {
+  margin-left: 1rem;
+  color: #222;
+  text-decoration: none;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+.header-link:first-child {
+  margin-left: 0;
+}
+.header-link.router-link-exact-active {
+  color: #00796b;
+  text-decoration: underline;
 }
 </style>

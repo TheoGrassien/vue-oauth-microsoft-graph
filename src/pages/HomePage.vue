@@ -1,6 +1,9 @@
 <template>
   <main>
     <h1 class="home-page-title">Bienvenue sur la page d'accueil !</h1>
+    <div v-if="user" class="user-info">
+      Bonjour, {{ user.name || user.username }}
+    </div>
     <div class="button-container">
       <BaseButton class="custom-margin"
         >BaseButton with custom margin</BaseButton
@@ -28,6 +31,12 @@ export default {
   components: {
     BaseButton,
     AsyncButton,
+  },
+  props: {
+    user: {
+      type: Object,
+      default: null,
+    },
   },
   data() {
     return {
@@ -60,5 +69,11 @@ export default {
   gap: 10px;
   align-items: center;
   justify-content: center;
+}
+.user-info {
+  text-align: center;
+  margin-bottom: 1rem;
+  font-weight: bold;
+  color: #26a69a;
 }
 </style>

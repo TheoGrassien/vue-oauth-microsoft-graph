@@ -1,6 +1,6 @@
 <template>
-  <BaseLayout>
-    <HomePage class="home-page" />
+  <BaseLayout :user="user" @userChanged="onUserChanged">
+    <HomePage class="home-page" :user="user" />
   </BaseLayout>
 </template>
 
@@ -12,6 +12,16 @@ export default {
   components: {
     HomePage,
     BaseLayout,
+  },
+  data() {
+    return {
+      user: null,
+    };
+  },
+  methods: {
+    onUserChanged(user) {
+      this.user = user;
+    },
   },
 };
 </script>

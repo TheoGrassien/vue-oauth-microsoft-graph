@@ -10,7 +10,10 @@
         <span>Connecté en tant que : {{ user.name || user.username }}</span>
       </template>
       <template v-else>
-        <SigninButton @user-signed-in="onUserSignedIn" />
+        <SigninButton
+          :user="user"
+          @userChanged="$emit('userChanged', $event)"
+        />
       </template>
     </div>
   </header>
@@ -22,14 +25,10 @@ import SigninButton from "./SigninButton.vue";
 export default {
   name: "BaseHeader",
   components: { SigninButton },
-  data() {
-    return {
-      user: null,
-    };
-  },
-  methods: {
-    onUserSignedIn(user) {
-      this.user = user;
+  props: {
+    user: {
+      type: Object,
+      default: null,
     },
   },
 };

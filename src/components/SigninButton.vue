@@ -17,17 +17,28 @@ import AsyncButton from "./AsyncButton.vue";
 export default {
   name: "SigninButton",
   components: { AsyncButton },
+  props: {
+    user: {
+      type: Object,
+      default: null,
+    },
+  },
   data() {
     return {
-      user: null,
+      localUser: this.user,
     };
+  },
+  watch: {
+    user(newVal) {
+      this.localUser = newVal;
+    },
   },
   methods: {
     async handleSignIn() {
       try {
         const user = await signInAndGetUser();
-        this.user = user;
-        this.$emit("user-signed-in", user);
+        this.localUser = user;
+        this.$emit("userChanged", user);
       } catch (e) {
         alert("Erreur lors de la connexion : " + e.message);
       }

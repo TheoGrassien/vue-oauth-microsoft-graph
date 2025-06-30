@@ -1,8 +1,8 @@
 <template>
   <div class="base-layout">
-    <BaseHeader />
+    <BaseHeader :user="user" @userChanged="$emit('userChanged', $event)" />
     <main class="base-layout-content">
-      <slot />
+      <slot :user="user" />
     </main>
     <BaseFooter />
   </div>
@@ -17,6 +17,12 @@ export default {
   components: {
     BaseHeader,
     BaseFooter,
+  },
+  props: {
+    user: {
+      type: Object,
+      default: null,
+    },
   },
 };
 </script>

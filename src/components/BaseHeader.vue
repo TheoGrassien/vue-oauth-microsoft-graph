@@ -6,14 +6,32 @@
     </div>
     <div class="header-right">
       <i class="fas fa-user"></i>
-      <span>Not yet logged-in</span>
+      <template v-if="user">
+        <span>Connecté en tant que : {{ user.name || user.username }}</span>
+      </template>
+      <template v-else>
+        <SigninButton @user-signed-in="onUserSignedIn" />
+      </template>
     </div>
   </header>
 </template>
 
 <script>
+import SigninButton from "./SigninButton.vue";
+
 export default {
   name: "BaseHeader",
+  components: { SigninButton },
+  data() {
+    return {
+      user: null,
+    };
+  },
+  methods: {
+    onUserSignedIn(user) {
+      this.user = user;
+    },
+  },
 };
 </script>
 

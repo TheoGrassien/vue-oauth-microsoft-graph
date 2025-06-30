@@ -1,8 +1,8 @@
 <template>
   <main>
     <h1 class="home-page-title">Bienvenue sur la page d'accueil !</h1>
-    <div v-if="user" class="user-info">
-      Bonjour, {{ user.name || user.username }}
+    <div v-if="userStore.user" class="user-info">
+      Bonjour, {{ userStore.user.name || userStore.user.username }}
     </div>
     <div class="button-container">
       <BaseButton class="custom-margin"
@@ -25,6 +25,7 @@
 <script>
 import BaseButton from "../components/BaseButton.vue";
 import AsyncButton from "../components/AsyncButton.vue";
+import { useUserStore } from "../lib/userStore.js";
 
 export default {
   name: "HomePage",
@@ -32,11 +33,9 @@ export default {
     BaseButton,
     AsyncButton,
   },
-  props: {
-    user: {
-      type: Object,
-      default: null,
-    },
+  setup() {
+    const userStore = useUserStore();
+    return { userStore };
   },
   data() {
     return {

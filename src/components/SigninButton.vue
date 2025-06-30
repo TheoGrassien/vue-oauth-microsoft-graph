@@ -3,9 +3,12 @@
     <AsyncButton :onClick="handleSignIn"
       >Se connecter avec Microsoft</AsyncButton
     >
-    <div v-if="user">
-      <p>Connecté en tant que : {{ user.name || user.username }}</p>
-      <pre>{{ user }}</pre>
+    <div v-if="userStore.user">
+      <p>
+        Connecté en tant que :
+        {{ userStore.user.name || userStore.user.username }}
+      </p>
+      <pre>{{ userStore.user }}</pre>
     </div>
   </div>
 </template>
@@ -13,32 +16,20 @@
 <script>
 import { signInAndGetUser } from "../lib/microsoftGraph.js";
 import AsyncButton from "./AsyncButton.vue";
+import { useUserStore } from "../lib/userStore.js";
 
 export default {
   name: "SigninButton",
   components: { AsyncButton },
-  props: {
-    user: {
-      type: Object,
-      default: null,
-    },
-  },
-  data() {
-    return {
-      localUser: this.user,
-    };
-  },
-  watch: {
-    user(newVal) {
-      this.localUser = newVal;
-    },
+  setup() {
+    const userStore = useUserStore();
+    return { userStore };
   },
   methods: {
     async handleSignIn() {
       try {
         const user = await signInAndGetUser();
-        this.localUser = user;
-        this.$emit("userChanged", user);
+        this.userStore.setUser(user);
       } catch (e) {
         alert("Erreur lors de la connexion : " + e.message);
       }

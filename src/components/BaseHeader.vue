@@ -6,14 +6,14 @@
     </div>
     <div class="header-right">
       <i class="fas fa-user"></i>
-      <template v-if="user">
-        <span>Connecté en tant que : {{ user.name || user.username }}</span>
+      <template v-if="userStore.user">
+        <span
+          >Connecté en tant que :
+          {{ userStore.user.name || userStore.user.username }}</span
+        >
       </template>
       <template v-else>
-        <SigninButton
-          :user="user"
-          @userChanged="$emit('userChanged', $event)"
-        />
+        <SigninButton />
       </template>
     </div>
   </header>
@@ -21,15 +21,14 @@
 
 <script>
 import SigninButton from "./SigninButton.vue";
+import { useUserStore } from "../lib/userStore.js";
 
 export default {
   name: "BaseHeader",
   components: { SigninButton },
-  props: {
-    user: {
-      type: Object,
-      default: null,
-    },
+  setup() {
+    const userStore = useUserStore();
+    return { userStore };
   },
 };
 </script>
